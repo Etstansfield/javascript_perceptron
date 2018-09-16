@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<html>
+<head>
+<title>
+Test Page
+</title>
+<script src="perceptronObjects.js"></script>
+<script src="perceptronObjectMethods.js"></script>
+
+</head>
+<body>
+		Hello
+	<canvas id="TestCanvas" width="800" height="770" style="border:1px solid #000000;">
+	</canvas>
+	<script>
+	//Assign the canvas to a varible and pass to the methods
+	var canvas = document.getElementById("TestCanvas");
+	var ctx = canvas.getContext("2d");
+	createIncorrectInitial(ctx);
+	</script>
+	<button type="button" onclick="addInput(ctx,tt,ts,ts2,7,er)">Add Input</button>
+	<button type="button" onclick="removeInput(ctx,tt,ts,ts2,er,tarT)">Remove Input</button>
+	<button type="button" onclick="predict(inputs,targetPattern1,ctx,po)">Predict</button>
+	<button type="button" onclick="predict(inputs,targetPattern2,ctx,po)">Predict2</button><br/>
+	<button type="button" onclick="weightAdjustment(targetPattern1,targetPattern2,miscVal,tt,connections,po,inputs)">Weight Ad1</button><br/>
+	<form>
+			Learning Rate: <input type="number" name="lRate" id="LearningRateInput" min="0" max="5" step="0.01" value="learningRate"> <br/>
+			
+			<button type="button" onclick="setLearningRate(sl,po)">Try it</button>
+			<button type="button" onclick="calculateRMS(targetPattern1,targetPattern2)">RMS</button>
+			<button type="button" onclick="drawWeightTable(tt)">tt</button>
+			
+			<span id="buttonArea">
+				<button type="button" id="startButton"autocomplete="off" onClick="exampleTraining(sB,nB)">Start Perceptron</button>
+				<button type="button" id="nextButton" disabled="true" autocomplete="off" onClick="runPerceptron(inputs,ctx,po,targetPattern1,targetPattern2
+				,tt,connections,miscVal,iS,er)">Next</button>
+			</span>
+	</form>
+	
+	<span id = "testTable">
+		<script>
+			tt = document.getElementById("testTable");
+			drawWeightTable(tt);
+			sl = document.getElementById("LearningRateInput");
+			
+		</script>
+	</span>
+	<span id="trainingSetSelect">
+		<select id="trainingSelect1"></select>
+		<button id="targetAdd1" onClick="addTarget1(ts,er)">Test</button>
+		
+		<select id="trainingSelect2"></select>
+		<button id="targetAdd2"onClick="addTarget2(ts2,er)">Test2</button>
+		<br/>Iterations: <span id="iterationsSpan"></span><br/>
+		<script>
+			var ts = document.getElementById("trainingSelect1");
+			var ts2 = document.getElementById("trainingSelect2");
+			var th1 = document.getElementById("threshold1Input");
+			var th2 = document.getElementById("threshold2Input");
+			var lR = document.getElementById("LearningRateInput");
+			var dN = document.getElementById("DeltaInput");
+			var aT1 = document.getElementById("addTarget1");
+			var aT2 = document.getElementById("addTarget2");
+			var cT1 = document.getElementById("changeThres1");
+			var cT2 = document.getElementById("changeThres2");
+			var aIn = document.getElementById("addInput");
+			var rIn = document.getElementById("removeInput");
+			var lRS = document.getElementById("learnRateSet");
+			var dS = document.getElementById("deltaSet");
+			var sB = document.getElementById("startButton");
+			var nB = document.getElementById("nextButton");
+			var iS = document.getElementById("iterationsSpan");
+			
+		</script>
+	</span>
+	
+	<script>
+	
+	</script>
+	<br/>
+	
+	
+	Errors: <span id="errors" style="color:red"></span><br/>
+	Prediction: <span id = "perceptronOutput" style="color:blue"></span>
+	<script>
+	po = document.getElementById("perceptronOutput");
+	er = document.getElementById("errors");
+	document.write("<br/>input:",inputs.length);
+	//addInput(ctx,tt,ts,ts2,7,er);
+	document.write("<br/>input:",inputs.length);
+	drawWeightTable(tt);
+	document.write("<br/>input:",inputs.length);
+	document.write("<br/>conn:",connections.length);
+	//addNewInputTargetOutput1(inputs[0]);
+	//addNewInputTargetOutput2(inputs[0]);
+	document.write("<br/>TEST:",targetPattern1[0].getInput().getLabel());
+	//addNewInputTargetOutput2(inputs[2]);
+	//document.write("<br/>Target 1 Input Weight:",targetPattern1[0].getInput().getConnection1().getWeight());
+	//document.write("<br/>Target 2 Input Weight:",targetPattern2[0].getInput().getConnection1().getWeight());
+	//document.write("<br/>Target 2 Input Weight:",targetPattern2[1].getInput().getConnection1().getWeight());
+	//document.write("<br/>",isIn(1,targetPattern2));
+	//document.write("<br/>",isIn(1,targetPattern1));
+	document.write("<br/>Bias Label:",inputs[0].getLabel());
+	//predict(inputs,targetPattern1);
+	//document.write("<br/>Bias Label after predict:",inputs[0].getLabel());
+	//document.write("<br/>Label 2 :",inputs[2].getLabel());
+	//document.write("<br/>Label 4 :",inputs[4].getLabel());
+	inputs[0].label = 2;
+	document.write("<br/>Test:",inputs[0].getLabel());
+	
+	</script>
+	<span id = "targetTable">
+		<script>
+			tarT = document.getElementById("targetTable");
+			drawTargetTable(tarT);
+		</script>
+	</span>
+	<script>
+		document.write("<br/>IC:",connections[4].getInstantCorrection());
+		//weightAdjustment(targetPattern1,targetPattern2,learningRate,tt,connections);
+		document.write("<br/>IC:",connections[4].getInstantCorrection());
+		i = 0;
+		for(i;i<connections.length;i++){
+			document.write("<br/>ID: ",connections[i].getId());
+		}
+	</script>
+	
+</body>
+</html>

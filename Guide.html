@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<html>
+<!--
+Description: A Javascript Script to demonstrate the Perceptron Algorithm
+Author: 	 Edward Stansfield
+CSID:		 U3ES
+UOLID		 200958929
+For:		 COMP390 - Personal Project
+-->
+<head>
+<title>
+Perceptron Guide
+</title>
+<link rel="stylesheet" href="COMP390.css"/>
+</head>
+
+<body>
+	<div id = "wrapper">
+		<div id="header">
+			<!--Title and Description, including rules for the game-->
+			<h1><u>Perceptron Algorithm Teaching Tool</u></h1>
+		</div>
+	<br/>
+		<div id="navigation">
+			<a class="btn" href="Project.html">Main</a>&emsp;&nbsp;&nbsp;
+			<a class="btn" href="Demo.html" >Correct Demo</a>&emsp;&nbsp;&nbsp;
+			<a class="btn" href="InDemo.html" >Incorrect Demo</a>&emsp;&nbsp;&nbsp;
+			<a class="btn" href="Perceptron.html" >Interactive Perceptron</a>&emsp;&nbsp;&nbsp;
+			<a class="btn" href="Guide.html"  >Perceptron Guide</a>&emsp;&nbsp;&nbsp;
+			<a class="btn" href="About.html" >About</a>
+		</div>
+		<div id = "content">
+			<div id="content-main">
+			<h3>How to use the examples:</h3>
+			<h4>The Correct Example</h4>
+			To start the example first press the "Start Perceptron" button. Then press the "next" button until the perceptron has finished processing.
+			If you press the "next" button after the example has finished (this should be with two presses of the next button) you will notice a message
+			appear in the error box, which says that there is no further computation to do, the example has finished.<br/><br/>
+			<img src="exampleOptions.png" alt="The options for the examples" title="The options for the examples" style="border-style:dotted"> 
+			<div style="text-align:center;border-style:none"><i>The options for the examples, notice that the "next" button begins disabled.</i></div>
+			<h4>The Incorrect Example</h4>
+			The incorrect example operates the same as the correct, except that it does not end in two presses of the next button, instead you will notice 
+			that it will go on forever, at some point repeating weight adjustments, this is intentional to show that the perceptron has failed
+			to classify the training set.
+			<h3>How to use the interactive perceptron:</h3>
+			The interactive perceptron can be used much like the example perceptrons, except now you have control over what the parameters for the
+			perceptron to operate on including the training patterns, the learning rate, thresholds for the outputs, number of inputs and the delta 
+			value.<br/><br/>
+			<img src="iterOptions.png" alt="Interactive Perceptron Options" title="Interactive Perceptron Options" style="border-style:dotted">
+			<div style="text-align:center;border-style:none"><i>The options for the interactive perceptron, the values in the boxes are the default values.</i></div>
+			<img src="inputButtons.png" alt="Input Buttons" title="Input Buttons" style="border-style:dotted"><br/>
+			The add input option at the top adds a input node to the perceptron, when the button is pressed you will notice a new node on the 
+			graphical representations of the perceptron and two new weights added to the weight table, as well as another option in the drop-down
+			menu for the target patterns. There can only be a maximum of five inputs, if you attempt to add more an error message will appear.<br/><br/>
+			The remove input option is much the same but in reverse, when clicked it removes an input node from the graphical representation, 
+			removes weights from the weight table and from the target patterns options. The miniumum amount of input nodes is two, this is beacuse any number
+			of nodes less than this is trivial.<br/><br/>
+			<img src="learnButton.png" alt="Learning Rate and Delta Buttons" title="Learning Rate and Delta Buttons" style="border-style:dotted"><br/>
+			The set learning rate button sets the learning rate to the value in the field to the left of it, by default this is 0.25, changing the learning 
+			rate changes the rate by which the weights of connections are modified, higher values result in larger weight changes.
+			The learning rate can be modified in increments of 0.01. Once the button has been pressed to change the learning rate, a notice will appear
+			in the perceptron output, informing you of the change to the new value.<br/><br/>
+			
+			To the right of that is the field and button to change the delta value, this is by default 0.0001, and can be changed in increments of the same 
+			value. Again, when the button is pressed a notice appears in the perceptron output informing you of the change. The delta value is "how close" to the 
+			correct value you want the performace to be, therefore higher values have a larger margin of error and can be expected to stop the perceptron 
+			earlier than a smaller value, however caution is adviced as to large a delta value can result in the perceptron not classifying correctly.<br/><br/>
+			<img src="thresButton.png" alt="Threshold Buttons" title="Threshold Buttons" style="border-style:dotted"><br/>
+			Below this is are the options to change the thresholds of the output nodes, these are much like the delta or learning rate options, in that there
+			is a field where you can change the value of the thresholds (in increments of 0.0001) and a button to set the threshold to the value of the
+			field, it also displays a message in the output to notify you of the change, as might be expected, threshold 1 is the threshold for the 
+			first output node and threshold 2 for the second, both have a default value of 0, and cannot go below this value.<br/><br/>
+			<img src="trainButton.png" alt="Training set Buttons and table" title="Training set Buttons and table" style="border-style:dotted"><br/>
+			Below this is the table displaying both of the training patterns for both outputs, you will notice that they both start with Input 0 already in them,
+			this is beacuse input 0 acts as the bias node, and so must be in both, you cannot remove this node from the training patterns.<br/>
+			Below that are two drop down menus with two buttons to the right of each these allow you to add and remove input nodes from the training patterns,
+			like the fields above pressing the add button will add the value in the field to the pattern, if you attempt to add an input that is already in the 
+			pattern an error message will appear. The remove button removes the value in the field from the training pattern, if you attempt to remove a node that
+			isn't in the pattern an error message will appear. Also note that if you add an input to either of the patterns and then remove it from the perceptron
+			(using the remove input button above), then it will be automatically removed from the target pattern(s).<br/><br/>
+			<img src="weightButton.png" alt=" Weight table" title="Weight table" style="border-style:dotted"><br/>
+
+			Below that, there is the weight table, this shows the weights, on the left handside the ones that go to output 1 and on the right, the ones that go to 
+			output 2, below them is their current weights, this allows you to have a consise view of the current weights, the perceptron output below shows
+			much more detail including which weights have been altered and by how much. These weights initiate to random values.<br/><br/>
+			<img src="exampleOptions.png" alt="The options for the interaction" title="The options for the interaction" style="border-style:dotted"><br/>
+			We also have below that, like in the examples the start perceptron and next buttons, these function in exactly the same way as in the examples, except
+			that when you press the start perceptron button if you have not added any inputs to the training patterns it will display an error message, this is
+			beacuse having only the bias node in the patterns will not work. You cannot start the perceptron without additional nodes in the patterns.
+			Once the start perceptron button has been pressed (and additional nodes are in the training patterns) then the next button will become enabled
+			and all of the buttons above to modify the parameters will become disabled (so that you cannot modify the parameters while the perceptron is 
+			running and cause an error), then like with the examples press the next button until the perceptron stops, however depending on how you set
+			up the perceptron it may not stop!<br/><br/>
+			<img src="errorExample.png" alt="Example error output" title="Example error output" style="border-style:dotted"><br/>
+			<img src="perOutExample.png" alt="Example Perceptron Output" title="Example Perceptron Output" style="border-style:dotted"><br/>
+			Finally below that we have the error output and the perceptron output, the error outputs any errors during the setup and execution of the perceptron,
+			it only displays one at a time. The percptron output, on the other hand, is a running log detailing the running of the perceptron, in this way
+			you can see the whole execution of the perceptron, from the predictions to the RMS.
+			</div>
+		</div>
+	<div id = "bottom">
+		<br/><hr/><br/>
+		<i>Created by Edward Stansfield : U3ES</i>
+		<br/>Local Time:  
+		<script type="text/javascript">
+			document.write( Date() );
+		</script>
+	</div>
+	</div>
+</body>
+</html>

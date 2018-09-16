@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<html>
+<head>
+<!--
+Description: A Javascript Script to demonstrate the Perceptron Algorithm
+Author: 	 Edward Stansfield
+CSID:		 U3ES
+UOLID		 200958929
+For:		 COMP390 - Personal Project
+-->
+<title>
+Interactive Perceptron
+</title>
+<link rel="stylesheet" href="COMP390.css"/>
+<script src="Chart.js-master/Chart.js"></script>
+<script src="Chart.Scatter-master/Chart.Scatter.js"></script>
+<script src="perceptronObjects.js"></script>
+<script src="perceptronObjectMethods.js"></script>
+</head>
+<body>
+	<div id = "wrapper">
+		<div id="header">
+		<!--Title and Description, including rules for the game-->
+		<h1><u>Perceptron Algorithm Teaching Tool</u></h1>
+	</div>
+	<br/>
+		<div id="navigation">
+			<a class="btn" href="Project.html">Main</a>&emsp;&nbsp;&nbsp;
+			<a class="btn" href="Demo.html" >Correct Demo</a>&emsp;&nbsp;&nbsp;
+			<a class="btn" href="InDemo.html" >Incorrect Demo</a>&emsp;&nbsp;&nbsp;
+			<a class="btn" href="Perceptron.html" >Interactive Perceptron</a>&emsp;&nbsp;&nbsp;
+			<a class="btn" href="Guide.html"  >Perceptron Guide</a>&emsp;&nbsp;&nbsp;
+			<a class="btn" href="About.html" >About</a>
+		</div>
+	<div id = "content">
+		<div id="content-main">
+			
+			<h2>Interactive Perceptron</h2><br/>
+			
+			
+			<canvas id="interactivePerceptron" height="550" width="800"  style="border:1px solid #000000;" <!--onClick="alert('No Interaction for now.')-->">
+				Your browser does not support the canvas tag. Please upgrade your browser.
+			</canvas>
+			<script>
+				//Assigning the canvas to a variable
+				var canvas = document.getElementById("interactivePerceptron");
+				var ctx = canvas.getContext("2d");
+				createInitial(ctx);
+				
+					
+				
+			</script>
+			<div style="text-align:center;margin:0;border-style:none;">
+			 <button type="button" id="addInput" onclick="addInput(ctx,weightT,ts,ts2,5,er)" autocomplete="off">Add Input</button>
+			<button type="button" id="removeInput" onclick="removeInput(ctx,weightT,ts,ts2,er,tarT)" autocomplete="off">Remove Input</button>
+			</div>
+			
+			<form style="margin:auto; display:table;">
+				Learning Rate: <input type="number" autocomplete="off"name="lRate" id="LearningRateInput" min="0" max="5" step="0.01" value="0.25"> 
+			<button type="button" id="learnRateSet"onclick="setLearningRate(lR,perOut)" autocomplete="off">Set Learning Rate</button>
+				Delta Value: <input type="number" autocomplete="off" name="dNum" id="DeltaInput" min="0" max="5" step="0.0001" value="0.0001"> 
+			<button type="button" id="deltaSet" onclick="setDelta(dN,perOut)" autocomplete="off">Set Delta</button>
+			</form>
+			
+			  <br/>
+			<span style="margin:auto; display:table;">
+				<input type="number" autocomplete="off" name="thres1" id="threshold1Input" min="0" max="10" step="0.0001" value="0">
+				<button  id="changeThres1" onclick="setThreshold1(th1,perOut)" autocomplete="off">Change Threshold 1</button>
+				<input type="number" autocomplete="off" name="thres2" id="threshold2Input" min="0" max="10" step="0.0001" value="0">
+				<button id="changeThres2" onclick="setThreshold2(th2,perOut)" autocomplete="off">Change Threshold 2</button>
+		
+	</span>
+			<br/>
+			
+			
+			
+			<!--<button type="button" onClick="perOut.innerHTML = outputNode2.getThreshold()">TEST</button>-->
+		Training set:<br/>
+			<span id = "targetTable">
+				
+			</span><br/>
+			 <span id="trainingSetSelect" style="margin:auto; display:table;">
+				<select id="trainingSelect1"></select>
+				<button id="addTarget1" onClick="addTarget1(ts,er)" autocomplete="off">Add to Pattern 1</button>
+				<button id="targetRemove1" onClick="removeTarget1(ts,er)">Remove from Pattern 1</button>
+				<select id="trainingSelect2"></select>
+				<button id="addTarget2" onClick="addTarget2(ts2,er)" autocomplete="off">Add to Pattern 2</button>
+				<button id="targetRemove2" onClick="removeTarget2(ts2,er)">Remove from Pattern 2</button>
+				</span>
+
+			<br/>
+			
+			Weights:
+			<span id="weightTable"></span>
+			<br/>
+			<button type="button" id="startButton" onClick="perceptronTraining(miscVal.getLearningRate(),outputNode1.getThreshold(),outputNode2.getThreshold()
+			,miscVal.getDelta(),targetPattern1,targetPattern2,inputs,connections,perOut,er,weightT,aT1,aT2,dS,cT1,cT2,aIn,rIn,lRS,ctx,nB,sB)"
+			autocomplete="off">Start Perceptron</button>
+			
+			<button type="button" id="nextButton"onClick="runPerceptron(inputs,ctx,perOut,targetPattern1,targetPattern2
+			,weightT,connections,miscVal,iT,er)" autocomplete="off" disabled="true">Next</button><br/>
+			Iterations:<span id="iterations"></span><br/>
+			Errors: <span id="errors" style="color:red"></span><br/>
+		Perceptron Output: <div id = "perceptronOutput" class="perceptronOutput" style="color:blue"></div>
+		<script>
+			
+			var th1 = document.getElementById("threshold1Input");
+			var th2 = document.getElementById("threshold2Input");
+			var lR = document.getElementById("LearningRateInput");
+			var dN = document.getElementById("DeltaInput");
+			var aT1 = document.getElementById("addTarget1");
+			var aT2 = document.getElementById("addTarget2");
+			var cT1 = document.getElementById("changeThres1");
+			var cT2 = document.getElementById("changeThres2");
+			var aIn = document.getElementById("addInput");
+			var rIn = document.getElementById("removeInput");
+			var lRS = document.getElementById("learnRateSet");
+			var dS = document.getElementById("deltaSet");
+			var iT = document.getElementById("iterations");
+			tarT = document.getElementById("targetTable");
+			
+		</script>
+		
+		<h2>Graph of Results:</h2><br/>
+		The Data on this graph is random, it is only intended as an example, to see how the finished graph will look.<br/>
+		It has been created using the open source <a href="http://www.chartjs.org">Chart.js</a> and extended by the 
+		<a href="https://dima117.github.io/Chart.Scatter/">scatter</a> class.<br/><br/>
+    <canvas id="countries" width="600" height="400"></canvas>
+        <script>
+		var ts = document.getElementById("trainingSelect1");
+		var ts2 = document.getElementById("trainingSelect2");
+		perOut = document.getElementById("perceptronOutput");
+		er = document.getElementById("errors");
+		nB = document.getElementById("nextButton");
+		sB = document.getElementById("startButton");
+		var weightT = document.getElementById("weightTable");
+				drawWeightTable(weightT);
+				drawInputSelection(ts,inputs);
+			drawInputSelection(ts2,inputs);
+			drawTargetTable(tarT);
+		//The data for the graph
+		var lineChartData =[
+    {
+      label: 'Class 1',
+      strokeColor: '#F16220',
+      pointColor: '#F16220',
+      pointStrokeColor: '#fff',
+      data: [
+        { x: 5, y: 65 }, 
+        { x: 15, y: 59 }, 
+        { x: 20, y: 59 }, 
+        { x: 30, y: 81 },
+        
+      ]
+    },
+    {
+      label: 'Class 2',
+      strokeColor: '#007ACC',
+      pointColor: '#007ACC',
+      pointStrokeColor: '#fff',
+      data: [
+        { x: 10, y: 45}, 
+        { x: 27, y: 50}, 
+        { x: 35, y: 55}, 
+        { x: 37, y: 31},
+      ]
+    },
+			{
+				label: 'Line',
+				strokeColor: '#000000',
+				pointColor: '#000000',
+				pointStrokeColor: '#fff',
+				data: [
+					{x:5,y:55},
+					{x:37,y:60}
+				]
+			}
+  ];
+
+        // Get the context of the canvas element we want to select
+        var countries= document.getElementById("countries").getContext("2d");
+		var myChart = new Chart(countries).Scatter(lineChartData, {responsive: true});
+        
+    </script>
+			
+		</div>
+	</div>
+	<div id = "bottom">
+		<br/><hr/><br/>
+		<i>Created by Edward Stansfield : U3ES</i>
+		<br/>Local Time:  
+		<script type="text/javascript">
+			document.write( Date() );
+		</script>
+	</div>
+	</div> <!--End of Wrapper Div-->
+	
+</body>
+</html>

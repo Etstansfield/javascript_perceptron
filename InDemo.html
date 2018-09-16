@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<meta charset="UTF-8">
+<html>
+<!--
+Description: A Javascript Script to demonstrate the Perceptron Algorithm
+Author: 	 Edward Stansfield
+CSID:		 U3ES
+UOLID		 200958929
+For:		 COMP390 - Personal Project
+-->
+<head>
+	<title>
+	Incorrect Perceptron Demo
+	</title>
+	<link rel="stylesheet" href="COMP390.css"/>
+	<script src="Chart.js-master\Chart.js"></script>
+	<script src="Chart.Scatter-master\Chart.Scatter.js"></script>
+	<script src="perceptronObjects.js"></script>
+	<script src="perceptronObjectMethods.js"></script>
+</head>
+<body>
+	<div id = "wrapper">
+		<div id="header">
+			<!--Title and Description-->
+			<h1><u>Perceptron Algorithm Teaching Tool</u></h1>
+		</div><br/>
+		<div id="navigation">
+			<a class="btn" href="Project.html">Main</a>&emsp;&nbsp;&nbsp;
+			<a class="btn" href="Demo.html" >Correct Demo</a>&emsp;&nbsp;&nbsp;
+			<a class="btn" href="InDemo.html" >Incorrect Demo</a>&emsp;&nbsp;&nbsp;
+			<a class="btn" href="Perceptron.html" >Interactive Perceptron</a>&emsp;&nbsp;&nbsp;
+			<a class="btn" href="Guide.html"  >Perceptron Guide</a>&emsp;&nbsp;&nbsp;
+			<a class="btn" href="About.html" >About</a>
+		</div>
+		<div id = "content">
+			<div id="content-main">
+			
+			
+			<!--Incorrect Example -->
+			<h3>Incorrectly Classifying Perceptron:</h3><br/>
+			
+			<canvas id="incorrectPerceptron" height="450" width="800"  style="border:1px solid #000000;">
+				Your browser does not support the canvas tag. Please upgrade your browser.
+			</canvas>
+			<script>
+				
+			var canvas = document.getElementById("incorrectPerceptron");
+				var ctx = canvas.getContext("2d");
+				ctx.font = "30px Calibri";
+				
+				createIncorrectInitial(ctx);
+				//drawGraph(ctx);
+			
+			</script>
+			</br>
+			
+			 Training set:<br/>
+			<span id="setTable"></span><br/>
+			<!--Graphical Representation-->
+			<br/>
+			Weights:<br/><span id = "weightTable"></span><br/>
+			Learning Rate: 0.25 <br/>						
+			Delta: 0.0001<br/>
+			<button type="button" autocomplete="off" id="startButton" onClick="exampleTraining(sB,nB)">Start Perceptron</button>
+			<button type="button" disabled="true" id="nextButton" autocomplete="off" onClick="runPerceptron(inputs,ctx,perOut,targetPattern1,targetPattern2,
+			wt,connections,miscVal,itSpan,er)">Next</button>
+			 <br/>
+			Iterations: <span id="iterationsSpan"></span><br/>
+			Errors: <span id="errors" style="color:red"></span><br/>
+			Perceptron Output: <div id = "perceptronOutput" class="perceptronOutput" style="color:blue"></div>
+			
+			<h3>Graph of Results:</h3><br/>
+			<canvas id="incorrectGraph"></canvas>
+			<script>
+			perOut = document.getElementById("perceptronOutput");
+			er = document.getElementById("errors");
+			sB = document.getElementById("startButton");
+			nB = document.getElementById("nextButton");
+			itSpan = document.getElementById("iterationsSpan");
+			wt = document.getElementById("weightTable");
+			drawWeightTable(wt)
+			st = document.getElementById("setTable");
+			drawTargetTable(st);
+				//The data for the graph
+			var lineChartData =[
+			{
+			  label: 'Class 1',
+			  strokeColor: '#F16220',
+			  pointColor: '#F16220',
+			  pointStrokeColor: '#fff',
+			  data: [
+				{ x: 5, y: 65 }, 
+				{ x: 15, y: 50 }, 
+				{ x: 20, y: 59 }, 
+				{ x: 30, y: 81 },
+				
+			  ]
+			},
+			{
+			  label: 'Class 2',
+			  strokeColor: '#007ACC',
+			  pointColor: '#007ACC',
+			  pointStrokeColor: '#fff',
+			  data: [
+				{ x: 10, y: 45}, 
+				{ x: 27, y: 50}, 
+				{ x: 35, y: 70}, 
+				{ x: 37, y: 31},
+			  ]
+			},
+			{
+				label: 'Line',
+				strokeColor: '#000000',
+				pointColor: '#000000',
+				pointStrokeColor: '#fff',
+				data: [
+					{x:5,y:55},
+					{x:37,y:60}
+				]
+			}
+		  ];
+
+        // Get the context of the canvas element we want to select
+        var incorrectGraph= document.getElementById("incorrectGraph").getContext("2d");
+		var incorrectChart = new Chart(incorrectGraph).Scatter(lineChartData, {responsive: true});
+			</script>
+			</div>	<!-- End of Main content Div-->
+			
+		</div>
+		<div id = "bottom">
+				<br/><hr/><br/>
+				<i>Created by Edward Stansfield : U3ES</i>
+				<br/>Local Time:  
+				<script type="text/javascript">
+					document.write( Date() );
+				</script>
+			</div>
+	</div> <!--End of Wrapper Div-->
+</body>
+</html>
